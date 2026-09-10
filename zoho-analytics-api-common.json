@@ -22,7 +22,7 @@
               "ZohoAnalytics.metadata.read": "Read metadata from Zoho Analytics.",
               "ZohoAnalytics.metadata.create": "Create metadata in Zoho Analytics.",
               "ZohoAnalytics.metadata.update": "Update metadata in Zoho Analytics.",
-              "ZohoAnalytics.metadata.delete": "Delete metadata in Zoho Analytics.",
+              "ZohoAnalytics.metadata.delete": "Delete metadata from Zoho Analytics.",
               "ZohoAnalytics.metadata.all": "Full access to metadata in Zoho Analytics.",
               "ZohoAnalytics.share.read": "Read shared items in Zoho Analytics.",
               "ZohoAnalytics.share.create": "Create shared items in Zoho Analytics.",
@@ -72,15 +72,18 @@
     },
     "responses": {
       "CommonErrorResponse": {
-        "description": "Client error. The request could not be completed because of a problem with the request itself - invalid or missing parameters (400), insufficient permission (403), or a resource that does not exist (404). Inspect `data.errorCode` and `data.errorMessage` to identify the cause, correct the request, and retry.",
+        "description": "Client error. The request could not be completed because of a problem with the request itself - invalid or missing parameters (400), invalid or expired OAuth authentication (401), insufficient permission (403), or a resource that does not exist (404). Inspect `data.errorCode` and `data.errorMessage` to identify the cause, correct the request, and retry.",
         "content": {
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/Error"
             },
             "examples": {
-              "Invalid OAuthToken (400)": {
-                "$ref": "#/components/examples/InvalidOAuthExample"
+              "Bad Request (400)": {
+                "$ref": "#/components/examples/BadRequestExample"
+              },
+              "Authentication failed (401)": {
+                "$ref": "#/components/examples/AuthenticationFailedExample"
               },
               "Permission Denied (403)": {
                 "$ref": "#/components/examples/PermissionDeniedExample"
@@ -149,9 +152,21 @@
           }
         }
       },
-      "InvalidOAuthExample": {
-        "description": "Invalid OAuthToken (400)",
-        "summary": "The request could not be accepted as sent. The OAuth token is missing, expired, or invalid, or a mandatory parameter is absent or does not meet the expected format. Regenerate the access token or correct the request parameters, then retry.",
+      "BadRequestExample": {
+        "description": "Bad request (400)",
+        "summary": "The request is missing a required organization identifier in the request header.",
+        "value": {
+          "status": "failure",
+          "summary": "ORGID_NOT_PRESENT_IN_THE_HEADER",
+          "data": {
+            "errorCode": 8083,
+            "errorMessage": "Organization id is not present in the request header."
+          }
+        }
+      },
+      "AuthenticationFailedExample": {
+        "description": "Authentication Failed (401)",
+        "summary": "Authentication failed because the OAuth token is missing, expired, or invalid. Regenerate the access token and retry the request.",
         "value": {
           "status": "failure",
           "summary": "INVALID_OAUTHTOKEN",
