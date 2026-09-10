@@ -151,13 +151,13 @@
       },
       "InvalidRequestExample": {
         "description": "Invalid request (400)",
-        "summary": "The request is malformed - a mandatory parameter is missing, or the value supplied does not meet the expected format or minimum count. Correct the request parameters and retry.",
+        "summary": "The request could not be accepted as sent. The OAuth token is missing, expired, or invalid, or a mandatory parameter is absent or does not meet the expected format. Regenerate the access token or correct the request parameters, then retry.",
         "value": {
           "status": "failure",
-          "summary": "LESS_THAN_MIN_OCCURANCE",
+          "summary": "INVALID_OAUTHTOKEN",
           "data": {
-            "errorCode": 8504,
-            "errorMessage": "The parameter CONFIG is not proper(Has not been sent or is less than required count)"
+            "errorCode": 8535,
+            "errorMessage": "Invalid Oauthtoken"
           }
         }
       },
@@ -186,7 +186,7 @@
         }
       },
       "UnexpectedErrorExample": {
-        "description": "Unexpected server error (500)",
+        "description": "Unexpected server error",
         "summary": "An unexpected condition on the Zoho Analytics server prevented the request from completing. The request itself may be valid. Retry after a short interval, and contact Zoho Analytics support if the error persists.",
         "value": {
           "status": "failure",
