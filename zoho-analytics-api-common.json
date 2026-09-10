@@ -79,8 +79,8 @@
               "$ref": "#/components/schemas/Error"
             },
             "examples": {
-              "Invalid Request (400)": {
-                "$ref": "#/components/examples/InvalidRequestExample"
+              "Invalid OAuthToken (400)": {
+                "$ref": "#/components/examples/InvalidOAuthExample"
               },
               "Permission Denied (403)": {
                 "$ref": "#/components/examples/PermissionDeniedExample"
@@ -149,8 +149,8 @@
           }
         }
       },
-      "InvalidRequestExample": {
-        "description": "Invalid request (400)",
+      "InvalidOAuthExample": {
+        "description": "Invalid OAuthToken (400)",
         "summary": "The request could not be accepted as sent. The OAuth token is missing, expired, or invalid, or a mandatory parameter is absent or does not meet the expected format. Regenerate the access token or correct the request parameters, then retry.",
         "value": {
           "status": "failure",
