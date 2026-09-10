@@ -82,7 +82,7 @@
               "Bad Request (400)": {
                 "$ref": "#/components/examples/BadRequestExample"
               },
-              "Authentication failed (401)": {
+              "Authentication Failed (401)": {
                 "$ref": "#/components/examples/AuthenticationFailedExample"
               },
               "Permission Denied (403)": {
