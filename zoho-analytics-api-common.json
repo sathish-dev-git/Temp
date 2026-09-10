@@ -1,0 +1,202 @@
+{
+  "components": {
+    "securitySchemes": {
+      "iam-oauth2-schema": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://accounts.zoho.com/oauth/v2/auth",
+            "tokenUrl": "https://accounts.zoho.com/oauth/v2/token",
+            "refreshUrl": "https://accounts.zoho.com/oauth/v2/token",
+            "scopes": {
+              "ZohoAnalytics.data.read": "Read data from Zoho Analytics.",
+              "ZohoAnalytics.data.create": "Create data in Zoho Analytics.",
+              "ZohoAnalytics.data.update": "Update data in Zoho Analytics.",
+              "ZohoAnalytics.data.delete": "Delete data from Zoho Analytics.",
+              "ZohoAnalytics.data.all": "Full access to data in Zoho Analytics.",
+              "ZohoAnalytics.modeling.read": "Read modeling objects in Zoho Analytics.",
+              "ZohoAnalytics.modeling.create": "Create modeling objects in Zoho Analytics.",
+              "ZohoAnalytics.modeling.update": "Update modeling objects in Zoho Analytics.",
+              "ZohoAnalytics.modeling.delete": "Delete modeling objects in Zoho Analytics.",
+              "ZohoAnalytics.modeling.all": "Full access to modeling objects in Zoho Analytics.",
+              "ZohoAnalytics.metadata.read": "Read metadata from Zoho Analytics.",
+              "ZohoAnalytics.metadata.create": "Create metadata in Zoho Analytics.",
+              "ZohoAnalytics.metadata.update": "Update metadata in Zoho Analytics.",
+              "ZohoAnalytics.metadata.delete": "Delete metadata in Zoho Analytics.",
+              "ZohoAnalytics.metadata.all": "Full access to metadata in Zoho Analytics.",
+              "ZohoAnalytics.share.read": "Read shared items in Zoho Analytics.",
+              "ZohoAnalytics.share.create": "Create shared items in Zoho Analytics.",
+              "ZohoAnalytics.share.update": "Update shared items in Zoho Analytics.",
+              "ZohoAnalytics.share.delete": "Delete shared items in Zoho Analytics.",
+              "ZohoAnalytics.share.all": "Full access to shared items in Zoho Analytics.",
+              "ZohoAnalytics.embed.read": "Read embedded content from Zoho Analytics.",
+              "ZohoAnalytics.embed.create": "Create embedded content in Zoho Analytics.",
+              "ZohoAnalytics.embed.update": "Update embedded content in Zoho Analytics.",
+              "ZohoAnalytics.embed.delete": "Delete embedded content in Zoho Analytics.",
+              "ZohoAnalytics.embed.all": "Full access to embedded content in Zoho Analytics.",
+              "ZohoAnalytics.usermanagement.read": "Read user management data in Zoho Analytics.",
+              "ZohoAnalytics.usermanagement.create": "Create user management data in Zoho Analytics.",
+              "ZohoAnalytics.usermanagement.update": "Update user management data in Zoho Analytics.",
+              "ZohoAnalytics.usermanagement.delete": "Delete user management data in Zoho Analytics.",
+              "ZohoAnalytics.usermanagement.all": "Full access to user management in Zoho Analytics.",
+              "ZohoAnalytics.fullaccess.all": "Full access to all Zoho Analytics features."
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "failure"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "errorCode": {
+                "type": "integer"
+              },
+              "errorMessage": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "CommonErrorResponse": {
+        "description": "Client error. The request could not be completed because of a problem with the request itself - invalid or missing parameters (400), insufficient permission (403), or a resource that does not exist (404). Inspect `data.errorCode` and `data.errorMessage` to identify the cause, correct the request, and retry.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "Invalid Request (400)": {
+                "$ref": "#/components/examples/InvalidRequestExample"
+              },
+              "Permission Denied (403)": {
+                "$ref": "#/components/examples/PermissionDeniedExample"
+              },
+              "Resource Not Found (404)": {
+                "$ref": "#/components/examples/ResourceNotFoundExample"
+              }
+            }
+          }
+        }
+      },
+      "UnexpectedErrorResponse": {
+        "description": "Unexpected error. Something went wrong on the Zoho Analytics server while processing an otherwise valid request. This is not caused by the request payload and cannot be resolved by changing it. Retry after a short interval; if the error persists, contact Zoho Analytics support for assistance, quoting `data.errorCode` and the time of the request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "examples": {
+              "Unexpected Error (500)": {
+                "$ref": "#/components/examples/UnexpectedErrorExample"
+              }
+            }
+          }
+        }
+      }
+    },
+    "examples": {
+      "InvalidOAuthTokenExample": {
+        "value": {
+          "status": "failure",
+          "summary": "INVALID_OAUTHTOKEN",
+          "data": {
+            "errorCode": 8535,
+            "errorMessage": "Invalid Oauthtoken"
+          }
+        }
+      },
+      "LessThanMinOccuranceExample": {
+        "value": {
+          "status": "failure",
+          "summary": "LESS_THAN_MIN_OCCURANCE",
+          "data": {
+            "errorCode": 8504,
+            "errorMessage": "The parameter CONFIG is not proper(Has not been sent or is less than required count)"
+          }
+        }
+      },
+      "WorkspaceNotFoundExample": {
+        "value": {
+          "status": "failure",
+          "summary": "META_OBJECT_NOT_PRESENT",
+          "data": {
+            "errorCode": 7103,
+            "errorMessage": "Workspace not found! Please check whether the workspace exists."
+          }
+        }
+      },
+      "InternalServerErrorExample": {
+        "value": {
+          "status": "failure",
+          "summary": "COMMON_INTERNAL_SERVER_ERROR",
+          "data": {
+            "errorCode": 7005,
+            "errorMessage": "Sorry, an unexpected error occurred when performing this operation. Please contact support for additional information."
+          }
+        }
+      },
+      "InvalidRequestExample": {
+        "description": "Invalid request (400)",
+        "summary": "The request is malformed - a mandatory parameter is missing, or the value supplied does not meet the expected format or minimum count. Correct the request parameters and retry.",
+        "value": {
+          "status": "failure",
+          "summary": "LESS_THAN_MIN_OCCURANCE",
+          "data": {
+            "errorCode": 8504,
+            "errorMessage": "The parameter CONFIG is not proper(Has not been sent or is less than required count)"
+          }
+        }
+      },
+      "PermissionDeniedExample": {
+        "description": "Permission denied (403)",
+        "summary": "The request is authenticated, but the user does not hold the privilege required for this operation on the requested resource. Ask the workspace or organization administrator to grant the required permission.",
+        "value": {
+          "status": "failure",
+          "summary": "SECURITY_NOT_PERMITTED",
+          "data": {
+            "errorCode": 7301,
+            "errorMessage": "You (<user-name>) do not have the permission to do this operation. "
+          }
+        }
+      },
+      "ResourceNotFoundExample": {
+        "description": "Resource not found (404)",
+        "summary": "The workspace, view, or other resource addressed by the request URI does not exist, or has been deleted. Verify the identifiers used in the request path.",
+        "value": {
+          "status": "failure",
+          "summary": "META_OBJECT_NOT_PRESENT",
+          "data": {
+            "errorCode": 7103,
+            "errorMessage": "Workspace not found! Please check whether the workspace exists."
+          }
+        }
+      },
+      "UnexpectedErrorExample": {
+        "description": "Unexpected server error (500)",
+        "summary": "An unexpected condition on the Zoho Analytics server prevented the request from completing. The request itself may be valid. Retry after a short interval, and contact Zoho Analytics support if the error persists.",
+        "value": {
+          "status": "failure",
+          "summary": "COMMON_INTERNAL_SERVER_ERROR",
+          "data": {
+            "errorCode": 7005,
+            "errorMessage": "Sorry, an unexpected error occurred when performing this operation. Please contact support for additional information."
+          }
+        }
+      }
+    }
+  }
+}
