@@ -1,0 +1,317 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to use the Zoho Analytics OKF bundle — with any tool, any model</title>
+<style>
+:root{--bg:#0b1020;--panel:#111a33;--panel2:#16213f;--ink:#e8ecf7;--mut:#9aa6c4;--line:#26325a;--acc:#5ee1a6;--acc2:#7aa2ff;--warn:#ffcf5e;--code:#0a0f1f}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
+a{color:var(--acc2);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header{padding:64px 0 40px;background:radial-gradient(1200px 500px at 20% -10%,#1d2b5c 0%,transparent 60%),radial-gradient(900px 400px at 90% 0%,#0f3d33 0%,transparent 55%)}
+.eyebrow{color:var(--acc);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+h1{font-size:44px;line-height:1.1;margin:10px 0 14px;letter-spacing:-.02em}h1 span{color:var(--acc)}
+.lead{font-size:18px;color:var(--mut);max-width:760px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.pill{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--mut)}.pill b{color:var(--ink)}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:34px 0 0}.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}.stat .v{font-size:26px;font-weight:800;color:var(--acc)}.stat .l{font-size:12.5px;color:var(--mut)}
+section{padding:44px 0 8px}h2{font-size:28px;margin:0 0 6px;letter-spacing:-.01em}.sub{color:var(--mut);margin:0 0 22px;max-width:820px}
+h3{font-size:17px;margin:0 0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;position:relative;overflow:hidden}.card::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--acc2)}
+.card.green::before{background:var(--acc)}.card.warn::before{background:var(--warn)}
+.card p{color:var(--mut);margin:6px 0 10px;font-size:14.5px}.card .tag{display:inline-block;font-size:11.5px;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:2px 7px;margin-bottom:8px;letter-spacing:.04em}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 46px 14px 14px;overflow:auto;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#dbe4ff;position:relative;margin:8px 0}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#1a2447;padding:1px 6px;border-radius:5px}pre code{background:none;padding:0}
+.copy{position:absolute;top:8px;right:8px;border:1px solid var(--line);background:var(--panel2);color:var(--mut);border-radius:6px;padding:3px 9px;font-size:12px;cursor:pointer}.copy:hover{color:var(--ink)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line);margin:14px 0 0}.tab{border:1px solid transparent;border-bottom:none;padding:9px 14px;border-radius:10px 10px 0 0;cursor:pointer;color:var(--mut);font-weight:600;font-size:14px;background:transparent}.tab.on{background:var(--panel);border-color:var(--line);color:var(--ink)}
+.pane{display:none;background:var(--panel);border:1px solid var(--line);border-top:none;border-radius:0 0 14px 14px;padding:18px}.pane.on{display:block}.pane p{color:var(--mut);margin:6px 0 10px}
+.tree{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c9d4f5}.tree b{color:var(--acc)}.tree i{color:var(--mut);font-style:normal}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;counter-reset:s}.step{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 14px 10px;counter-increment:s}.step::before{content:counter(s);display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#04261a;font-weight:800;font-size:13px;margin-bottom:8px}.step b{display:block}.step span{color:var(--mut);font-size:13.5px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}th{background:var(--panel2)}td{background:var(--panel)}td.g{color:var(--acc);font-weight:700}td.m{color:var(--mut)}
+.callout{border:1px solid var(--line);border-left:4px solid var(--warn);background:var(--panel);border-radius:12px;padding:14px 16px;color:var(--mut);margin:16px 0}.callout b{color:var(--ink)}
+footer{padding:40px 0 70px;color:var(--mut);font-size:13.5px;border-top:1px solid var(--line);margin-top:50px}
+nav.toc{display:flex;flex-wrap:wrap;gap:10px 18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:14px}
+@media (max-width:640px){h1{font-size:32px}}
+</style></head><body>
+<header><div class="wrap">
+<div class="eyebrow">Zoho Analytics REST API v2 · Open Knowledge Format bundle</div>
+<h1>One folder of markdown.<br><span>Any tool. Any model.</span></h1>
+<p class="lead">The bundle is the whole API reference — 168 endpoints, conventions, 278 error codes, scopes, roles, 8 workflow playbooks — as small, typed markdown files an AI can read directly. This page shows how to plug it into the tools people actually use, from Claude Code and Cursor to a free open model running on your laptop, and how to turn it into a tool surface of your own.</p>
+<div class="pills"><span class="pill"><b>Entry point</b> llms.txt</span><span class="pill"><b>Format</b> OKF v0.2</span><span class="pill"><b>Bundle</b> 1.0.0</span><span class="pill"><b>Licence</b> see LICENSE.md</span><span class="pill"><b>Tested with</b> Claude Opus · Sonnet · Haiku · Nemotron-3 120B · Ling-3.0 Flash · Claude Code + MCP</span></div>
+<div class="strip">
+<div class="stat"><div class="v">168</div><div class="l">endpoint documents, one per operation</div></div>
+<div class="stat"><div class="v">278</div><div class="l">error codes with meaning, status and fix</div></div>
+<div class="stat"><div class="v">8</div><div class="l">multi-endpoint workflow playbooks</div></div>
+<div class="stat"><div class="v">5–21k</div><div class="l">prompt tokens an agent reads per task</div></div>
+<div class="stat"><div class="v">100%</div><div class="l">fact accuracy in evaluation, every model, with the bundle</div></div>
+</div></div></header>
+
+<div class="wrap"><nav class="toc"><a href="#start">Start here</a><a href="#recipes">Recipes by tool</a><a href="#own">Build your own tool surface</a><a href="#map">Bundle map</a><a href="#rules">Navigation rules</a><a href="#proof">What the tests showed</a><a href="#faq">FAQ</a></nav></div>
+
+<section id="start"><div class="wrap">
+<h2>Start here: three steps, every tool</h2>
+<p class="sub">Whatever the tool, integration is the same three moves. Everything below is a variation on them.</p>
+<div class="flow">
+<div class="step"><b>Point at the entry file</b><span>Give the agent <code>llms.txt</code> (a URL) or clone the repository and reference <code>okf/</code>. Links inside the bundle that start with <code>/</code> are relative to <code>okf/</code>.</span></div>
+<div class="step"><b>Add one instruction</b><span>"Read <code>how-to-use-this-bundle.md</code> first; it is the source of truth for API facts; quote the file for each fact." That single line was enough in every evaluated set-up.</span></div>
+<div class="step"><b>Give it hands (optional)</b><span>A tool that executes calls: our MCP server, an SDK, or one generic HTTP function that adds <code>Authorization</code> and <code>ZANALYTICS-ORGID</code>. The bundle supplies method, path and CONFIG.</span></div>
+</div>
+<pre><button class="copy">copy</button><code>https://raw.githubusercontent.com/sathish-dev-git/zoho-analytics-okf/main/llms.txt          ← curated entry point
+https://raw.githubusercontent.com/sathish-dev-git/zoho-analytics-okf/main/okf/how-to-use-this-bundle.md
+https://raw.githubusercontent.com/sathish-dev-git/zoho-analytics-okf/main/okf/references/endpoint-catalog.json   ← machine-readable inventory
+git clone https://github.com/sathish-dev-git/zoho-analytics-okf.git</code></pre>
+</div></section>
+
+<section id="recipes"><div class="wrap">
+<h2>Recipes by tool</h2>
+<p class="sub">Pick your tool. Each recipe is self-contained and uses the exact wording the evaluation ran with.</p>
+<div class="tabs" role="tablist">
+<button class="tab on" data-t="cc">Claude Code</button><button class="tab" data-t="cursor">Cursor / Copilot / Windsurf</button><button class="tab" data-t="chat">ChatGPT · Gemini · Claude.ai</button><button class="tab" data-t="api">Any LLM API (OpenRouter, Ollama…)</button><button class="tab" data-t="mcp">MCP server users</button><button class="tab" data-t="skill">Agent Skill</button><button class="tab" data-t="rag">RAG / internal copilot</button><button class="tab" data-t="gen">SDK · Postman · generators</button>
+</div>
+
+<div class="pane on" data-p="cc">
+<h3>Claude Code</h3><p>Clone the bundle into (or next to) your project and add these lines to <code>CLAUDE.md</code>. This is verbatim what the live evaluation used; it works with file tools alone.</p>
+<pre><button class="copy">copy</button><code>git clone https://github.com/sathish-dev-git/zoho-analytics-okf.git
+
+# CLAUDE.md
+The Zoho Analytics REST API v2 OKF bundle is in ./zoho-analytics-okf/okf/ and is the source of
+truth for API semantics: filter criteria grammar (okf/foundations/filter-criteria-syntax.md),
+import options (okf/domains/data-operations/sync-data-import/), row APIs, sharing
+(okf/domains/share-and-publish/sharing/), workflows (okf/workflows/) and error codes
+(okf/foundations/error-codes.md, anchor #error-&lt;code&gt;). Read okf/how-to-use-this-bundle.md first.
+Links beginning with / are relative to okf/. Quote the bundle file for each fact you rely on.</code></pre>
+<p>Result in the evaluation: 62/62 facts on the knowledge suite; on a live nine-step job, 0 failed API calls (Opus, Sonnet) and the smallest model producing the same requests as the largest.</p>
+</div>
+
+<div class="pane" data-p="cursor">
+<h3>Cursor, GitHub Copilot, Windsurf and other IDE agents</h3><p>Same idea, different file name. Clone the bundle into the workspace so the agent's file tools can reach it, and add a rules file.</p>
+<pre><button class="copy">copy</button><code># Cursor: .cursor/rules/zoho-analytics.mdc      (Copilot: .github/copilot-instructions.md · Windsurf: .windsurfrules)
+---
+description: Zoho Analytics REST API v2 facts come from the OKF bundle
+alwaysApply: true
+---
+For any Zoho Analytics API question or code, use ./zoho-analytics-okf/okf/ as the only source of API facts.
+Read okf/how-to-use-this-bundle.md first. Take method, path, CONFIG location and scope from the endpoint
+document's frontmatter; encoding rules from okf/foundations/request-conventions.md; multi-step tasks from
+okf/workflows/; error codes from okf/foundations/error-codes.md#error-&lt;code&gt;. Cite the file for each fact.</code></pre>
+<p>Tip: keep <code>okf/sdk-examples/</code> in the workspace too — it holds idiomatic snippets per endpoint in cURL, C#, Go, Java, PHP, Python, Node.js, Ruby and Deluge, which IDE agents pick up as patterns.</p>
+</div>
+
+<div class="pane" data-p="chat">
+<h3>ChatGPT, Gemini, Claude.ai and other chat assistants</h3><p>Two options, depending on whether the assistant can browse.</p>
+<table><tr><th style="width:170px">Browsing on</th><td>Paste this at the top of the chat:<pre><button class="copy">copy</button><code>Use only the Zoho Analytics OKF bundle as the source of API facts. Fetch
+https://raw.githubusercontent.com/sathish-dev-git/zoho-analytics-okf/main/llms.txt
+then fetch the documents it links to that are relevant to my question (start with overview.md and
+how-to-use-this-bundle.md; links starting with "/" are relative to .../main/okf/). Quote the file for each fact.</code></pre></td></tr>
+<tr><th>No browsing</th><td>Paste the relevant documents yourself: the endpoint document (e.g. <code>okf/domains/share-and-publish/sharing/share-views.md</code>), the workflow if it is a multi-step task, and the error entry if you are debugging. Typical size 5–20 KB — comfortably inside any chat window. The evaluation's <code>manual-web-ai-test/</code> folder has ready-made pastes for ten common tasks.</td></tr></table>
+</div>
+
+<div class="pane" data-p="api">
+<h3>Any LLM through an API — OpenRouter, Ollama, vLLM, Bedrock, Vertex…</h3><p>No agent framework needed. Put the documents an agent would open into the prompt and ask the question. This is exactly how the open models were evaluated (Nemotron-3 120B: 51% → 98%; Ling-3.0 Flash: 19% → 100%).</p>
+<pre><button class="copy">copy</button><code># python — works with any OpenAI-compatible endpoint (OpenRouter, Ollama, vLLM, LM Studio …)
+import json, os, urllib.request
+OKF = "zoho-analytics-okf/okf"                       # git clone https://github.com/sathish-dev-git/zoho-analytics-okf
+def doc(p): return open(f"{OKF}/{p.lstrip('/')}", encoding="utf-8").read()
+def error_entry(code):
+    s = doc("/foundations/error-codes.md"); i = s.find(f"## Error {code}\n"); return s[i:s.find("\n## Error ", i+5)]
+
+question = "Share view 123 in workspace 456 with jane@example.com read-only, rows where Region='East'. Then explain error 7301."
+context = "\n\n".join([
+    f"===== {p} =====\n{doc(p)}" for p in [
+        "/how-to-use-this-bundle.md",
+        "/workflows/share-view-with-row-filter.md",
+        "/domains/share-and-publish/sharing/share-views.md",
+        "/foundations/filter-criteria-syntax.md"]] +
+    [f"===== /foundations/error-codes.md (excerpt) =====\n{error_entry(7301)}"])
+
+body = {"model": "nvidia/nemotron-3-super-120b-a12b:free", "temperature": 0.2, "messages": [
+    {"role": "system", "content": "Use ONLY the supplied bundle documents as the source of API facts. Quote the document path for each fact."},
+    {"role": "user", "content": context + "\n\n===== TASK =====\n" + question}]}
+req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions", json.dumps(body).encode(),
+      {"Authorization": "Bearer " + os.environ["OPENROUTER_API_KEY"], "Content-Type": "application/json"})
+print(json.load(urllib.request.urlopen(req))["choices"][0]["message"]["content"])</code></pre>
+<pre><button class="copy">copy</button><code># Ollama, one-liner: a local model with the endpoint document in context
+ollama run llama3.1 "$(cat zoho-analytics-okf/okf/domains/share-and-publish/sharing/share-views.md)
+
+Using only the document above: give the HTTP method, path, headers, CONFIG and scope to share view 123 read-only to jane@example.com."</code></pre>
+<p>Which files to include? Follow the bundle's own navigation rules (below): endpoint document for facts, workflow for multi-step jobs, <code>request-conventions.md</code> for encoding, the error-catalog entry for a failure. Or let the model choose: give it <code>how-to-use-this-bundle.md</code> plus the file list and ask for the 3–4 paths it needs, then send those — the "self-navigated" condition in the evaluation scored 8/8 both times on a 120B open model.</p>
+</div>
+
+<div class="pane" data-p="mcp">
+<h3>Already using the Zoho Analytics MCP server?</h3><p>Keep it — and add the bundle beside it. The MCP server exposes 18 operations; the API has 168 endpoints. In the live evaluation every model completed the tool-covered steps with or without the bundle; the difference was everything outside the tools: the upsert import (<code>importType: UPDATEADD</code>, <code>matchingColumns</code>), sharing with a row filter, revoking a share. Without the bundle two models created an <b>unfiltered</b> share first and one could not remove it; with the bundle all three did it right on the first call.</p>
+<pre><button class="copy">copy</button><code>{
+  "mcpServers": {
+    "zoho-analytics": {
+      "command": "npx", "args": ["-y", "zoho-analytics-mcp-server@latest"],
+      "env": { "ANALYTICS_CLIENT_ID": "…", "ANALYTICS_CLIENT_SECRET": "…", "ANALYTICS_REFRESH_TOKEN": "…",
+               "ANALYTICS_ORG_ID": "…", "ANALYTICS_MCP_DATA_DIR": "/tmp/za-mcp",
+               "ACCOUNTS_SERVER_URL": "accounts.zoho.com", "ANALYTICS_SERVER_URL": "analyticsapi.zoho.com" }
+    }
+  }
+}
+# …and in CLAUDE.md / your rules file, the same "source of truth" line as the Claude Code recipe,
+# plus one generic HTTP tool for the endpoints the MCP does not cover (next section).</code></pre>
+</div>
+
+<div class="pane" data-p="skill">
+<h3>Package it as an Agent Skill</h3><p>The <a href="https://agentskills.io/specification">Agent Skills</a> layout (used by Claude Code, Cursor and others) is a folder with a <code>SKILL.md</code>. The bundle is the <code>references/</code> content; the skill tells the agent when and how to read it.</p>
+<pre><button class="copy">copy</button><code>~/.claude/skills/zoho-analytics-api/          (or ~/.cursor/skills/…)
+├── SKILL.md
+└── references/okf/   → symlink or copy of zoho-analytics-okf/okf
+
+# SKILL.md
+---
+name: zoho-analytics-api
+description: Use when writing or debugging code that calls the Zoho Analytics REST API v2 — requests, CONFIG payloads, scopes, error codes, multi-step workflows.
+---
+Source of truth: references/okf/. Read references/okf/how-to-use-this-bundle.md first.
+- Building a request: endpoint document frontmatter (method, path, config_parameter.location, oauth_scopes,
+  success_status) + references/okf/foundations/request-conventions.md for encoding.
+- Multi-step task: start in references/okf/workflows/.
+- A call failed: references/okf/foundations/error-codes.md#error-&lt;code&gt; — meaning, HTTP status, fix.
+- Never guess a key name or path; if the bundle does not say, say so.</code></pre>
+</div>
+
+<div class="pane" data-p="rag">
+<h3>RAG pipelines and internal copilots (support, Zia-style assistants)</h3><p>The bundle is pre-chunked: ~500 files, each one concept, each with typed YAML frontmatter. Index files, not fragments, and use the frontmatter as metadata filters.</p>
+<pre><button class="copy">copy</button><code># python — index the bundle with frontmatter as metadata (LangChain shown; any vector store works)
+import glob, yaml, re
+from langchain_core.documents import Document
+docs = []
+for path in glob.glob("zoho-analytics-okf/okf/**/*.md", recursive=True):
+    text = open(path, encoding="utf-8").read()
+    m = re.match(r"^---\n(.*?)\n---\n(.*)$", text, re.S)
+    meta = yaml.safe_load(m.group(1)) if m else {}
+    api = meta.get("api", {}) or {}
+    docs.append(Document(page_content=m.group(2) if m else text, metadata={
+        "path": path.split("/okf/", 1)[1], "type": meta.get("type"), "title": meta.get("title"),
+        "operation_id": api.get("operation_id"), "method": api.get("method"), "http_path": api.get("path"),
+        "scopes": ",".join(api.get("oauth_scopes", []) or []), "error_codes": ",".join(map(str, api.get("error_codes", []) or []))}))
+# retrieval tips: filter type=="API Endpoint" for how-to questions; look up error codes by anchor, not by similarity:
+#   okf/foundations/error-codes.md#error-7301  → deterministic answer for "why am I getting 7301?"</code></pre>
+<p>For support assistants the two highest-value lookups are deterministic, not semantic: <code>error-codes.md#error-&lt;code&gt;</code> (meaning, status, fix, which operations raise it) and <code>permission-matrix.md</code> (scope + role per endpoint).</p>
+</div>
+
+<div class="pane" data-p="gen">
+<h3>SDK generators, Postman, CLI parity checks</h3><p>Skip the prose and read the machine layer.</p>
+<table><tr><th style="width:290px">File</th><th>Use it for</th></tr>
+<tr><td><code>okf/references/endpoint-catalog.json</code></td><td>The inventory: every endpoint with method, path, operationId, scopes, permission, error codes and document paths. Drive a Postman/Bruno collection or a parity report ("168 documented, N implemented") from it.</td></tr>
+<tr><td><code>okf/references/openapi/*.json</code></td><td>OpenAPI 3, one file per domain plus shared components — request/response schemas for generators. Every endpoint document points into these with a JSON pointer.</td></tr>
+<tr><td><code>okf/sdk-examples/&lt;domain&gt;/&lt;group&gt;/&lt;operationId&gt;.md</code></td><td>Idiomatic usage per endpoint in 9 languages, for review of generated code or for few-shot prompting.</td></tr>
+<tr><td><code>okf/manifest.json</code></td><td>Bundle version, counts, entry points — pin a version, detect updates.</td></tr></table>
+<pre><button class="copy">copy</button><code># jq: list every endpoint that needs the share.create scope
+jq -r '.endpoints[] | select(.oauth_scopes[]? == "ZohoAnalytics.share.create") | "\(.method) \(.path)  \(.operation_id)"' \
+   zoho-analytics-okf/okf/references/endpoint-catalog.json</code></pre>
+</div>
+</div></section>
+
+<section id="own"><div class="wrap">
+<h2>Build your own tool surface: bundle + one generic call</h2>
+<p class="sub">An MCP server hard-codes one tool per operation. The bundle lets you skip that: give the agent <b>one</b> generic HTTP tool and the bundle as knowledge, and it composes any of the 168 endpoints itself. This is what the live evaluation did (the "REST wrapper"), and it worked on the smallest model tested.</p>
+<div class="grid">
+<div class="card green"><span class="tag">THE PATTERN</span><h3>One tool, all endpoints</h3><p>The tool only adds what the agent must not know — the token and the org header. Method, path and CONFIG come from the bundle. Wrap it as an MCP server, a LangChain tool, or a function call and you have a full-API "personal MCP" that stays current every time the bundle is regenerated.</p>
+<pre><button class="copy">copy</button><code># minimal generic tool (python, OpenAI-style function schema)
+import requests, os
+def zoho_analytics_call(method: str, path: str, config: dict | None = None, files: dict | None = None):
+    """Call the Zoho Analytics REST API v2. Take method, path, CONFIG shape and location from the OKF bundle."""
+    url = "https://analyticsapi.zoho.com" + path
+    h = {"Authorization": "Zoho-oauthtoken " + os.environ["ZA_TOKEN"], "ZANALYTICS-ORGID": os.environ["ZA_ORG"]}
+    import json
+    if files:   r = requests.request(method, url, headers=h, data={"CONFIG": json.dumps(config or {})}, files=files)   # multipart imports
+    elif method == "GET": r = requests.get(url, headers=h, params={"CONFIG": json.dumps(config)} if config else None)
+    else:       r = requests.request(method, url, headers=h, data={"CONFIG": json.dumps(config or {})})                 # form field CONFIG
+    return {"status": r.status_code, "body": r.text[:4000]}</code></pre></div>
+<div class="card"><span class="tag">WHAT THE AGENT DOES WITH IT</span><h3>Reads, then calls once</h3><p>Asked to "share table X read-only to Jane, rows where Region = East", an agent with the bundle opens <code>workflows/share-view-with-row-filter.md</code> → <code>share-views.md</code>, then calls:</p>
+<pre><code>zoho_analytics_call("POST", "/restapi/v2/workspaces/{ws}/share",
+  {"viewIds": ["{view}"], "emailIds": ["jane@example.com"],
+   "permissions": {"read": true},
+   "criteria": "\"Region\"='East'"})          → 204
+zoho_analytics_call("GET", "/restapi/v2/workspaces/{ws}/share/shareddetails",
+  {"viewIds": ["{view}"]})                    → criteria stored, isInvalidCriteria:false</code></pre><p>Without the bundle the same agents tried <code>/shares/tables</code>, <code>emails</code>, <code>permission:"VIEW"</code>, <code>filterCriteria:{…}</code> — 8542, 8504, 8525 — and two of them shared without the filter first.</p></div>
+<div class="card warn"><span class="tag">GUARDRAILS</span><h3>Keep the agent honest</h3><p>Three lines that made the evaluated runs safe: <b>"never guess a key name or path — if the bundle does not say, say so"</b>; <b>"verify with the read endpoint the playbook names before reporting success"</b>; and for destructive steps, <b>"state the criteria string before executing it"</b>. Pair with the smallest OAuth scopes the endpoint documents list — they are in every frontmatter.</p></div>
+</div>
+</div></section>
+
+<section id="map"><div class="wrap">
+<h2>Bundle map</h2>
+<p class="sub">Where things are. Every file has YAML frontmatter starting with <code>type</code>; endpoint documents carry an <code>api:</code> block so tools never parse prose.</p>
+<div class="tree">okf/
+├── <b>llms.txt</b> <i>(repo root)                      curated entry point for agents</i>
+├── <b>overview.md</b>                                 <i>what the API is, the object model, the five conventions every call shares</i>
+├── <b>how-to-use-this-bundle.md</b>                   <i>frontmatter contract + the seven navigation rules</i>
+├── endpoint-catalog.md                             <i>all 168 endpoints in one table</i>
+├── <b>foundations/</b>                                <i>rules shared by every call</i>
+│   ├── authentication.md · request-conventions.md · response-envelope.md · http-status-codes.md
+│   ├── <b>error-codes.md</b>  (#error-&lt;code&gt;)          <i>278 codes: meaning, status, fix, raised by</i>
+│   ├── oauth-scopes.md · permission-matrix.md · roles-and-permissions.md · identifiers.md
+│   ├── <b>filter-criteria-syntax.md</b> · asynchronous-jobs.md · rate-limits-and-quotas.md
+│   └── import-options-and-enums.md · export-formats-and-enums.md · data-centers.md · glossary.md · sdk-clients.md
+├── <b>domains/</b>&lt;domain&gt;/&lt;group&gt;/&lt;operationId&gt;.md      <i>one document per endpoint (10 domains, 33 groups)</i>
+├── <b>workflows/</b>                                  <i>8 playbooks: bootstrap IDs, async export, large import, share with row filter,</i>
+│                                                   <i>multi-tenant embed, email schedule, users &amp; roles, AutoML</i>
+├── sdk-examples/&lt;domain&gt;/&lt;group&gt;/&lt;operationId&gt;.md  <i>9 languages per endpoint</i>
+├── references/<b>endpoint-catalog.json</b> · references/openapi/*.json
+└── manifest.json · index.md · log.md</div>
+<h3 style="margin-top:22px">The frontmatter contract (why tools can treat documents as records)</h3>
+<pre><code>type: API Endpoint
+title: Share Views
+api:
+  operation_id: shareViews
+  method: POST
+  path: /restapi/v2/workspaces/{workspace-id}/share
+  oauth_scopes: [ZohoAnalytics.share.create]
+  org_id_header: required
+  config_parameter: { location: form, required: true }
+  request_content_type: application/x-www-form-urlencoded
+  success_status: 204
+  permission_required: Account Admin, Organization Admin, Workspace Admin, or Share permission on all viewIds
+  error_codes: [7301, 7307, 7320, 7321, 7322, 7323, 7533, 7535, 7541, 7543, 7545, 7549, 8029, 8074, 8080, 8085, 8086, 8241]
+  openapi: { file: /references/openapi/share-publish-grouped-api.json, pointer: "#/paths/~1restapi~1v2~1workspaces~1{workspace-id}~1share/post" }
+  sdk_examples: /sdk-examples/share-and-publish/sharing/share-views.md</code></pre>
+</div></section>
+
+<section id="rules"><div class="wrap">
+<h2>The seven navigation rules</h2>
+<p class="sub">From <code>how-to-use-this-bundle.md</code>. Tell an agent to follow these and it finds the right file in one or two hops.</p>
+<table>
+<tr><th style="width:230px">Task</th><th>Route</th></tr>
+<tr><td>"How do I…?"</td><td><code>overview.md</code> → the domain <code>overview.md</code> → the group <code>overview.md</code> (limits, permission model) → the endpoint document</td></tr>
+<tr><td>Build a request</td><td>method, path and <code>config_parameter.location</code> from the endpoint frontmatter · CONFIG fields from its <b>Request</b> section · encoding from <code>foundations/request-conventions.md</code></td></tr>
+<tr><td>Diagnose a failure</td><td><code>foundations/error-codes.md#error-&lt;code&gt;</code> — meaning, HTTP status, resolution, operations that raise it</td></tr>
+<tr><td>Choose OAuth scopes</td><td><code>api.oauth_scopes</code> of every endpoint the integration calls, or <code>foundations/oauth-scopes.md</code></td></tr>
+<tr><td>Check authorization</td><td><code>foundations/permission-matrix.md</code> (required role per endpoint) · <code>roles-and-permissions.md</code></td></tr>
+<tr><td>Generate SDKs / collections</td><td><code>references/endpoint-catalog.json</code> → <code>references/openapi/</code> → <code>sdk-examples/</code></td></tr>
+<tr><td>Multi-step job</td><td><code>workflows/</code> first — each playbook links the endpoints in order and names the IDs that flow between them</td></tr>
+</table>
+</div></section>
+
+<section id="proof"><div class="wrap">
+<h2>What the tests showed</h2>
+<p class="sub">Same prompt, same tools, same models — only the knowledge source changed. Full report with every recorded call: <a href="okf-bundle-evaluation.html">okf-bundle-evaluation.html</a> · plain-language summary: <a href="okf-bundle-evaluation-simplified.html">okf-bundle-evaluation-simplified.html</a>.</p>
+<table>
+<tr><th>Set-up</th><th>Without the bundle</th><th>With the bundle</th></tr>
+<tr><td>Claude Opus agent, 10-task knowledge suite (62 facts)</td><td class="m">85% from memory · 91% via public docs</td><td class="g">100%</td></tr>
+<tr><td>Nemotron-3 Super 120B, direct API call</td><td class="m">51%</td><td class="g">98%</td></tr>
+<tr><td>Ling-3.0 Flash (small open model), direct API call</td><td class="m">19%</td><td class="g">100%</td></tr>
+<tr><td>Live nine-step job, Claude Code + MCP + REST, three models — failed API calls</td><td class="m">7 · 13 · 34 (Opus · Sonnet · Haiku)</td><td class="g">0 · 0 · 2</td></tr>
+<tr><td>Same job — live calls to finish</td><td class="m">32 · 35 · 54</td><td class="g">22 · 17 · 18</td></tr>
+<tr><td>Same job — share with row filter</td><td class="m">Opus &amp; Sonnet shared <b>unfiltered</b> first; Sonnet could not revoke; Haiku never shared (23 tries)</td><td class="g">all three: filtered on first successful call, verified, revoked</td></tr>
+</table>
+<div class="callout"><b>Where it does not help:</b> inside what a tool already covers. Every model completed the MCP-covered steps with or without the bundle. Its value is everywhere the tools stop — and it is largest on smaller models.</div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+<h2>FAQ</h2>
+<div class="grid">
+<div class="card"><h3>Do I need the whole bundle in context?</h3><p>No. Agents open 3–6 files per task (5–21k tokens). For direct API calls, include the endpoint document, the workflow if multi-step, and the error entry if debugging — or let the model pick files from <code>how-to-use-this-bundle.md</code> plus the file list.</p></div>
+<div class="card"><h3>Which models does it work with?</h3><p>Anything that reads text. Evaluated: Claude Opus, Sonnet, Haiku (agentic), Nemotron-3 Super 120B and Ling-3.0 Flash (direct calls). The smaller the model, the bigger the gain.</p></div>
+<div class="card"><h3>Is it a replacement for the MCP server or the SDKs?</h3><p>No — it is what they, and any agent, read to make the right call. Tools execute; the bundle knows. Together they cover the whole API with one generic executor.</p></div>
+<div class="card"><h3>How current is it?</h3><p>Generated from the API reference and OpenAPI specs; <code>manifest.json</code> carries the version and <code>generated.at</code>. Trust tier is currently <i>unverified</i> (faithful to the docs, not yet re-confirmed line by line against the live service); the share endpoints were verified live in the evaluation.</p></div>
+<div class="card"><h3>Does it expose customer data or internals?</h3><p>No. Every fact comes from the public API reference and OpenAPI files; the validator refuses any provenance link pointing outside the bundle.</p></div>
+<div class="card"><h3>Where do I report a wrong fact?</h3><p>Open an issue on the repository with the bundle version from <code>manifest.json</code> and the document path. Reviewers can add <code>verified</code> entries to concepts they confirm.</p></div>
+</div>
+</div></section>
+
+<footer><div class="wrap">Zoho Analytics REST API v2 · Open Knowledge Format bundle 1.0.0 · Repository (temporary home): <a href="https://github.com/sathish-dev-git/zoho-analytics-okf">github.com/sathish-dev-git/zoho-analytics-okf</a> · Evaluation: <a href="okf-bundle-evaluation.html">full report</a> · <a href="okf-bundle-evaluation-simplified.html">plain-language summary</a></div></footer>
+
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));t.classList.add('on');document.querySelector('.pane[data-p="'+t.dataset.t+'"]').classList.add('on');}));
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{const c=b.parentElement.querySelector('code');navigator.clipboard.writeText(c.innerText).then(()=>{b.textContent='copied';setTimeout(()=>b.textContent='copy',1200);});}));
+</script></body></html>
